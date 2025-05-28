@@ -77,7 +77,7 @@ public class UserDao {
         }
     }
 
-    //追記
+    //8追記
     public User select(Connection connection, String accountOrEmail, String password) {
 
 

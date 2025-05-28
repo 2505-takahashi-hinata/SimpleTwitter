@@ -53,6 +53,7 @@ public class LoginServlet extends HttpServlet {
         String accountOrEmail = request.getParameter("accountOrEmail");
         String password = request.getParameter("password");
 
+        //Serviceを経由してUserオブジェクトを取得
         User user = new UserService().select(accountOrEmail, password);
         if (user == null) {
             List<String> errorMessages = new ArrayList<String>();
@@ -63,7 +64,9 @@ public class LoginServlet extends HttpServlet {
         }
 
         HttpSession session = request.getSession();
+      //取得したUserオブジェクトをセッションにセット
         session.setAttribute("loginUser", user);
+        //トップ画面へ遷移
         response.sendRedirect("./");
     }
 }

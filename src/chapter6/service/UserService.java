@@ -57,7 +57,7 @@ public class UserService {
         }
     }
 
-    //追記
+    //8追記 ログイン時のパスワードを暗号化
     public User select(String accountOrEmail, String password) {
 
   	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
@@ -119,9 +119,12 @@ public class UserService {
 
         Connection connection = null;
         try {
+        	//実践問題①パスワード=nullの場合、暗号化しない
+        	if(user.getPassword() != null) {
             // パスワード暗号化
             String encPassword = CipherUtil.encrypt(user.getPassword());
             user.setPassword(encPassword);
+        	}
 
             connection = getConnection();
             new UserDao().update(connection, user);
