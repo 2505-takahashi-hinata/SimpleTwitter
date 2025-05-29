@@ -96,11 +96,11 @@ public class SettingServlet extends HttpServlet {
         user.setName(request.getParameter("name"));
         user.setAccount(request.getParameter("account"));
 
-        //実践課題①パスワードが未入力の場合、パスワード更新のみ行わない
-        if (request.getParameter("password") != null) {
-        	user.setPassword(request.getParameter("password"));
-        }
-//        user.setPassword(request.getParameter("password"));
+        //実践課題①パスワードが未入力の場合、パスワード更新のみ行わない(UserSevice,UserDaoにてifで条件分岐)
+//        if (request.getParameter("password") != null) {
+//        	user.setPassword(request.getParameter("password"));
+//        }
+        user.setPassword(request.getParameter("password"));
 
         user.setEmail(request.getParameter("email"));
         user.setDescription(request.getParameter("description"));
@@ -126,6 +126,7 @@ public class SettingServlet extends HttpServlet {
         } else if (20 < account.length()) {
             errorMessages.add("アカウント名は20文字以下で入力してください");
         }
+        //実践問題①入力したパスワードがisEnptyでも処理進むように
 //        if (StringUtils.isEmpty(password)) {
 //            errorMessages.add("パスワードを入力してください");
 //        }
