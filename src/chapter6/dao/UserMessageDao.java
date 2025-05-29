@@ -52,13 +52,12 @@ public class UserMessageDao {
 			sql.append("    messages.created_date as created_date ");
 			sql.append("FROM messages ");
 			sql.append("INNER JOIN users ");
-
-			//id!=null の場合はユーザーを絞る
-			if (id != null) {
-				sql.append("WHERE users.id = ?");
-			}
-
 			sql.append("ON messages.user_id = users.id ");
+
+			//idがnullだったら全件取得する・idがnull以外だったら、その値に対応するユーザーIDの投稿を取得する
+			if (id != null) {
+				sql.append("WHERE users.id = ? ");
+			}
 			sql.append("ORDER BY created_date DESC limit " + num);
 
 			ps = connection.prepareStatement(sql.toString());
