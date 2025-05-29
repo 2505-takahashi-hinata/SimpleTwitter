@@ -32,7 +32,6 @@ public class TopServlet extends HttpServlet {
     public TopServlet() {
         InitApplication application = InitApplication.getInstance();
         application.init();
-
     }
 
     @Override
@@ -50,7 +49,13 @@ public class TopServlet extends HttpServlet {
       }
 
       //11追記
-      List<UserMessage> messages = new MessageService().select();
+      /* 実践課題②
+       * String型のuser_idの値をrequest.getParameter("user_id")で
+       * JSPから受け取るように設定
+       * MessageServiceのselectに引数としてString型のuser_idを追加
+       */
+      String userId = request.getParameter("user_id");
+      List<UserMessage> messages = new MessageService().select(userId);
 
       request.setAttribute("messages", messages);
       //11ここまで

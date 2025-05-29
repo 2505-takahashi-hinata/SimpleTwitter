@@ -62,7 +62,12 @@
               <c:forEach items="${messages}" var="message">
                   <div class="message">
                       <div class="account-name">
-                          <span class="account"><c:out value="${message.account}" /></span>
+                          <!-- 実践問題②  アカウント名にリンクを設定-->
+                          <span class="account">
+                              <a href="./?user_id=<c:out value="${message.userId}"/> ">
+                                  <c:out value="${message.account}" />
+                              </a>
+                          </span>
                           <span class="name"><c:out value="${message.name}" /></span>
                       </div>
                       <div class="text"><c:out value="${message.text}" /></div>
