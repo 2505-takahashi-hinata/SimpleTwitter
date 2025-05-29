@@ -16,7 +16,6 @@ import chapter6.utils.CipherUtil;
 
 public class UserService {
 
-
     /**
     * ロガーインスタンスの生成
     */
@@ -32,7 +31,6 @@ public class UserService {
 
     }
     public void insert(User user) {
-
 
 	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
         " : " + new Object(){}.getClass().getEnclosingMethod().getName());
@@ -69,11 +67,10 @@ public class UserService {
           try {
               // パスワード暗号化
               String encPassword = CipherUtil.encrypt(password);
-
               connection = getConnection();
               User user = new UserDao().select(connection, accountOrEmail, encPassword);
-              commit(connection);
 
+              commit(connection);
               return user;
           } catch (RuntimeException e) {
               rollback(connection);
@@ -122,12 +119,11 @@ public class UserService {
         Connection connection = null;
         try {
         	//実践問題①パスワード未入力の場合、暗号化しない
-        	if(!StringUtils.isEmpty(user.getPassword())) {
-            // パスワード暗号化
-            String encPassword = CipherUtil.encrypt(user.getPassword());
-            user.setPassword(encPassword);
+        	if(!StringUtils.isBlank(user.getPassword())) {
+        		// パスワード暗号化
+                String encPassword = CipherUtil.encrypt(user.getPassword());
+                user.setPassword(encPassword);
         	}
-
             connection = getConnection();
             new UserDao().update(connection, user);
             commit(connection);

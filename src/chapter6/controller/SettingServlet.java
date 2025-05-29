@@ -87,7 +87,6 @@ public class SettingServlet extends HttpServlet {
 
     private User getUser(HttpServletRequest request) throws IOException, ServletException {
 
-
 	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
         " : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
@@ -95,13 +94,7 @@ public class SettingServlet extends HttpServlet {
         user.setId(Integer.parseInt(request.getParameter("id")));
         user.setName(request.getParameter("name"));
         user.setAccount(request.getParameter("account"));
-
-        //実践課題①パスワードが未入力の場合、パスワード更新のみ行わない(UserSevice,UserDaoにてifで条件分岐)
-//        if (request.getParameter("password") != null) {
-//        	user.setPassword(request.getParameter("password"));
-//        }
         user.setPassword(request.getParameter("password"));
-
         user.setEmail(request.getParameter("email"));
         user.setDescription(request.getParameter("description"));
         return user;
@@ -109,13 +102,11 @@ public class SettingServlet extends HttpServlet {
 
     private boolean isValid(User user, List<String> errorMessages) {
 
-
 	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
         " : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
         String name = user.getName();
         String account = user.getAccount();
-//        String password = user.getPassword();
         String email = user.getEmail();
 
         if (!StringUtils.isEmpty(name) && (20 < name.length())) {
@@ -126,17 +117,13 @@ public class SettingServlet extends HttpServlet {
         } else if (20 < account.length()) {
             errorMessages.add("アカウント名は20文字以下で入力してください");
         }
-        //実践問題①入力したパスワードがisEnptyでも処理進むように
-//        if (StringUtils.isEmpty(password)) {
-//            errorMessages.add("パスワードを入力してください");
-//        }
+        //実践問題①入力したパスワードが未入力でも処理進むようにエラー文削除
         if (!StringUtils.isEmpty(email) && (50 < email.length())) {
             errorMessages.add("メールアドレスは50文字以下で入力してください");
         }
-
         if (errorMessages.size() != 0) {
             return false;
         }
-        return true;
-    }
+		return true;
+	}
 }
