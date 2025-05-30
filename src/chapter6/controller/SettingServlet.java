@@ -116,10 +116,11 @@ public class SettingServlet extends HttpServlet {
 		String name = user.getName();
 		String account = user.getAccount();
 		String email = user.getEmail();
+		int id = user.getId();
 
 		//実践課題③ selectでUserSriviceにアカウント名を渡す
-        //DB上に登録済みのuserをUser registereduserに代入
-		User registereduser = new UserService().select(account);
+		//DB上に登録済みのuserをUser registereduserに代入
+		User registeredUser = new UserService().select(account);
 
 		if (!StringUtils.isEmpty(name) && (20 < name.length())) {
 			errorMessages.add("名前は20文字以下で入力してください");
@@ -131,7 +132,7 @@ public class SettingServlet extends HttpServlet {
 		}
 		//実践課題②
 		//入力したアカウントと、１件取得したアカウントが同じでない場合エラーメッセージ
-		if (registereduser != null && registereduser.getAccount() != account) {
+		if (registeredUser != null && registeredUser.getId() != id) {
 			errorMessages.add("すでに存在するアカウントです");
 		}
 

@@ -97,7 +97,7 @@ public class SignUpServlet extends HttpServlet {
 
 		//実践課題③ selectでUserSriviceにアカウント名を渡す
 		//DB上に登録済みのuserをUser registereduserに代入
-		User registereduser = new UserService().select(account);
+		User registeredUser = new UserService().select(account);
 
 		if (!StringUtils.isEmpty(name) && (20 < name.length())) {
 			errorMessages.add("名前は20文字以下で入力してください");
@@ -109,7 +109,7 @@ public class SignUpServlet extends HttpServlet {
 			errorMessages.add("アカウント名は20文字以下で入力してください");
 		}
 		//実践課題③ DB上にアカウントがある場合、エラーメッセージ
-		if (registereduser != null) {
+		if (registeredUser != null) {
 			errorMessages.add("すでに存在するアカウントです");
 		}
 
