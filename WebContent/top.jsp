@@ -76,6 +76,15 @@
               </c:forEach>
           </div>
 
+          <!-- 仕様追加①つぶやき削除 -->
+          <div class="deleteMessage">
+		      <form action="deleteMessage" method="post">
+		          <input name="id" value="${user.id}" id="id" type="hidden"/>
+		          <input type="submit" value="つぶやく">
+		      </form>
+          </div>
+
+
             <div class="copyright"> Copyright(c)takahashi</div>
         </div>
     </body>
