@@ -79,6 +79,7 @@ public class UserMessageDao {
 		}
 	}
 
+	//ResultSetからUserMessage型につめかえ
 	private List<UserMessage> toUserMessages(ResultSet rs) throws SQLException {
 
 		log.info(new Object() {

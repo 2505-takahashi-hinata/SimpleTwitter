@@ -97,6 +97,18 @@
 						</form>
 					</c:if>
 				</div>
+
+				<!-- 仕様追加②つぶやき編集 -->
+				<div class="edit">
+					<!-- 条件：ログインしている場合、編集ボタン表示 -->
+					<c:if test="${ loginUser.id == message.userId }">
+						<form action="edit" method="get">
+							<!-- message.idをhiddenを使い、message.idをeditSerletに送る-->
+							<input name="id" value="${message.id}" id="id" type="hidden">
+							<input type="submit" value="編集">
+						</form>
+					</c:if>
+				</div>
 			</c:forEach>
 		</div>
 

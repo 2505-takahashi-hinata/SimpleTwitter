@@ -131,4 +131,64 @@ public class MessageService {
 			close(connection);
 		}
 	}
+
+	//仕様追加②-1 つぶやきの編集 現状のメッセージ取得まで
+	public Message selectEdit(String id) {
+
+		log.info(new Object() {
+		}.getClass().getEnclosingClass().getName() +
+				" : " + new Object() {
+				}.getClass().getEnclosingMethod().getName());
+
+		Connection connection = null;
+		try {
+			connection = getConnection();
+			//MessageDaoへselectメソッド(connection, messageId)を渡す 戻り値Message型 message
+			Integer messageId = null;
+			messageId = Integer.parseInt(id);
+			Message message = new MessageDao().select(connection, messageId);
+			commit(connection);
+			//EditServletへMessage型 messageを返す
+			return message;
+		} catch (RuntimeException e) {
+			rollback(connection);
+			log.log(Level.SEVERE, new Object() {
+			}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
+			throw e;
+		} catch (Error e) {
+			rollback(connection);
+			log.log(Level.SEVERE, new Object() {
+			}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
+			throw e;
+		} finally {
+			close(connection);
+		}
+	}
+	//仕様追加②-2 つぶやきの編集 テキストを更新
+	public void update(Message message) {
+
+		log.info(new Object() {
+		}.getClass().getEnclosingClass().getName() +
+				" : " + new Object() {
+				}.getClass().getEnclosingMethod().getName());
+
+		Connection connection = null;
+		try {
+			connection = getConnection();
+			new MessageDao().update(connection, message);
+			commit(connection);
+		} catch (RuntimeException e) {
+			rollback(connection);
+			log.log(Level.SEVERE, new Object() {
+			}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
+			throw e;
+		} catch (Error e) {
+			rollback(connection);
+			log.log(Level.SEVERE, new Object() {
+			}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
+			throw e;
+		} finally {
+			close(connection);
+		}
+	}
 }
