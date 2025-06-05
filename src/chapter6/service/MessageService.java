@@ -60,7 +60,8 @@ public class MessageService {
 	}
 
 	//11追記
-	//実践課題② selectの引数にString型のuserIdを追加
+	//実践課題② 各ユーザー毎のつぶやき表示
+	//selectの引数にString型のuserIdを追加
 	public List<UserMessage> select(String userId) {
 
 		log.info(new Object() {
