@@ -164,6 +164,7 @@ public class MessageService {
 			close(connection);
 		}
 	}
+
 	//仕様追加②-2 つぶやきの編集 テキストを更新
 	public void update(Message message) {
 

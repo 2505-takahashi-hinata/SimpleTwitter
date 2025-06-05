@@ -127,33 +127,32 @@ public class MessageDao {
 		} finally {
 			close(ps);
 		}
-
 	}
 	//ResultSetからUserMessage型につめかえ
-		private List<Message> toMessages(ResultSet rs) throws SQLException {
+	private List<Message> toMessages(ResultSet rs) throws SQLException {
 
-			log.info(new Object() {
-			}.getClass().getEnclosingClass().getName() +
-					" : " + new Object() {
-					}.getClass().getEnclosingMethod().getName());
+		log.info(new Object() {
+		}.getClass().getEnclosingClass().getName() +
+				" : " + new Object() {
+				}.getClass().getEnclosingMethod().getName());
 
-			List<Message> messages = new ArrayList<Message>();
-			try {
-				while (rs.next()) {
-					//messageにつめたid~created_dateをListに追加 を繰り返す
-					Message message = new Message();
-					message.setId(rs.getInt("id"));
-					message.setText(rs.getString("text"));
-					message.setUserId(rs.getInt("user_id"));
-					message.setCreatedDate(rs.getTimestamp("created_date"));
+		List<Message> messages = new ArrayList<Message>();
+		try {
+			while (rs.next()) {
+				//messageにつめたid~created_dateをListに追加 を繰り返す
+				Message message = new Message();
+				message.setId(rs.getInt("id"));
+				message.setText(rs.getString("text"));
+				message.setUserId(rs.getInt("user_id"));
+				message.setCreatedDate(rs.getTimestamp("created_date"));
 
-					messages.add(message);
-				}
-				return messages;
-			} finally {
-				close(rs);
+				messages.add(message);
 			}
+			return messages;
+		} finally {
+			close(rs);
 		}
+	}
 	//仕様追加②-2 つぶやきの編集 つぶやきの更新
 	public void update(Connection connection, Message message) {
 
@@ -186,6 +185,4 @@ public class MessageDao {
 			close(ps);
 		}
 	}
-
-
 }
