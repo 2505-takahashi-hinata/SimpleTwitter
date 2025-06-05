@@ -80,7 +80,7 @@ public class MessageDao {
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append("DELETE FROM messages");
-			sql.append(" WHERE id = ? ");
+			sql.append("WHERE id = ? ");
 
 			ps = connection.prepareStatement(sql.toString());
 
@@ -163,12 +163,11 @@ public class MessageDao {
 
 		PreparedStatement ps = null;
 		try {
-
 			//UPDATE文に修正する
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE messages SET ");
 			sql.append("    text = ?, ");
-			sql.append(" updated_date = CURRENT_TIMESTAMP ");
+			sql.append("    updated_date = CURRENT_TIMESTAMP ");
 			sql.append("WHERE id = ? ");
 
 			ps = connection.prepareStatement(sql.toString());
