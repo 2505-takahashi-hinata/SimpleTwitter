@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import chapter6.beans.User;
+import chapter6.beans.UserComment;
 import chapter6.beans.UserMessage;
 import chapter6.logging.InitApplication;
+import chapter6.service.CommentService;
 import chapter6.service.MessageService;
 
 @WebServlet(urlPatterns = { "/index.jsp" })
@@ -55,12 +57,15 @@ public class TopServlet extends HttpServlet {
        * MessageServiceのselectに引数としてString型のuser_idを追加
        */
       String userId = request.getParameter("user_id");
-      List<UserMessage> messages = new MessageService().select(userId);
-
+      //仕様追加⑤ つぶやきの絞り込み String型の開始日時・終了日時を取得
+      String start = request.getParameter("start");
+      String end = request.getParameter("end");
+      List<UserMessage> messages = new MessageService().select(userId, start, end);
+      //仕様追加③-2 返信内容の表示
+      List<UserComment> comments = new CommentService().select();
+      request.setAttribute("comments", comments);
       request.setAttribute("messages", messages);
-      //11ここまで
       request.setAttribute("isShowMessageForm", isShowMessageForm);
-      //10ここまで
       request.getRequestDispatcher("/top.jsp").forward(request, response);
     }
 }

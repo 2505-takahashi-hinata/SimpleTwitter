@@ -25,6 +25,13 @@
 				<a href="logout">ログアウト</a>
 			</c:if>
 		</div>
+
+		<!-- 仕様追加⑤つぶやきの絞り込み 日時・絞込ボタン表示 -->
+		<form action="index.jsp" method="get">
+			日付： <input name="start" type="date">～<input name="end" type="date">
+			<input type="submit" value="絞込">
+		</form>
+
 		<!-- 9追記 -->
 		<c:if test="${ not empty loginUser }">
 			<div class="profile">
@@ -71,10 +78,10 @@
 				<div class="message">
 					<div class="account-name">
 						<!-- 実践問題②  アカウント名にリンクを設定-->
-						<span class="account"> <a
-							href="./?user_id=<c:out value="${message.userId}"/> "> <c:out
-									value="${message.account}" />
-						</a>
+						<span class="account">
+							<a href="./?user_id=<c:out value="${message.userId}"/> ">
+								<c:out value="${message.account}" />
+							</a>
 						</span> <span class="name"><c:out value="${message.name}" /></span>
 					</div>
 					<div class="text">
@@ -110,6 +117,34 @@
 						</form>
 					</c:if>
 				</div>
+				<!-- 仕様追加③-1 つぶやきの返信欄表示 -->
+				<!-- <div class="commentMessage"> -->
+					<c:if test="${ isShowMessageForm }">
+						<form action="comment" method="post">
+							<br /><textarea name="text" cols="100" rows="5" class="tweet-box"></textarea>
+							<br />
+							<input name="messageId" value="${message.id}" id="id" type="hidden">
+							<input type="submit" value="返信">（140文字まで）
+						</form>
+					</c:if>
+					<!-- 仕様追加③-2 つぶやきの返信を表示 (返信コメントにはリンク,削除,編集機能なし)-->
+					<c:forEach items="${comments}" var="comment">
+						 <c:if test="${ comment.messageId == message.id }">
+							<div class="account-name">
+								<span class="account"> <c:out value="${comment.account}" /></span>
+								<span class="name"><c:out value="${comment.name}" /></span>
+							</div>
+							<div class="text">
+								<!-- pre要素でつぶやき内の改行を反映させる -->
+								<pre><c:out value="${comment.text}" /></pre>
+							</div>
+							<div class="date">
+								<fmt:formatDate value="${comment.createdDate}"
+									pattern="yyyy/MM/dd HH:mm:ss" />
+							</div>
+						</c:if>
+					</c:forEach>
+				<!-- </div> -->
 			</c:forEach>
 		</div>
 

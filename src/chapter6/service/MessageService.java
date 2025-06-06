@@ -4,6 +4,8 @@ import static chapter6.utils.CloseableUtil.*;
 import static chapter6.utils.DBUtil.*;
 
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -62,7 +64,7 @@ public class MessageService {
 	//11追記
 	//実践課題② 各ユーザー毎のつぶやき表示
 	//selectの引数にString型のuserIdを追加
-	public List<UserMessage> select(String userId) {
+	public List<UserMessage> select(String userId, String start, String end) {
 
 		log.info(new Object() {
 		}.getClass().getEnclosingClass().getName() +
@@ -85,8 +87,21 @@ public class MessageService {
 				id = Integer.parseInt(userId);
 			}
 
-			// messageDao.selectに引数としてInteger型のidを追加
-			List<UserMessage> messages = new UserMessageDao().select(connection, id, LIMIT_NUM);
+			//仕様追加⑤ つぶやきの絞り込み String start, String endをUserMessageDaoへ
+			if (!StringUtils.isEmpty(start)) {
+				start = start + " 00:00:00";
+			}else {
+				start = "2020/01/01 00:00:00";
+			}
+			if (!StringUtils.isEmpty(end)) {
+				end = end + " 23:59:59";
+			}else {
+				Date nowDate = new Date();
+				SimpleDateFormat now = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+				end = now.format(nowDate);
+			}
+			// UserMessageDao.selectに引数としてInteger型のidを追加
+			List<UserMessage> messages = new UserMessageDao().select(connection, id, LIMIT_NUM, start, end);
 
 			commit(connection);
 			return messages;

@@ -15,13 +15,15 @@
         <div class="main-contents">
 
             <c:if test="${ not empty errorMessages }">
-                <div class="errorMessages">
-                    <ul>
-                        <c:forEach items="${errorMessages}" var="errorMessage">
-                            <li><c:out value="${errorMessage}" />
-                        </c:forEach>
-                    </ul>
-                </div>
+				<div class="errorMessages">
+					<ul>
+						<c:forEach items="${errorMessages}" var="errorMessage">
+							<li><c:out value="${errorMessage}" />
+						</c:forEach>
+					</ul>
+				</div>
+				<!-- 仕様追加④ログインフィルター メッセージ表示後、session内のエラー文を削除 -->
+				<c:remove var="errorMessages" scope="session" />
             </c:if>
 
             <form action="login" method="post"><br />
