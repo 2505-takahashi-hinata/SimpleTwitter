@@ -94,7 +94,7 @@ public class EditServlet extends HttpServlet {
 				}.getClass().getEnclosingMethod().getName());
 
 		List<String> errorMessages = new ArrayList<String>();
-		//入力されたテキスト無いようを取得
+		//入力されたテキスト内容を取得
 		String text = request.getParameter("text");
 		Message message = new Message();
 		//Message型messageにセット

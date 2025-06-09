@@ -61,6 +61,11 @@ public class TopServlet extends HttpServlet {
       String start = request.getParameter("start");
       String end = request.getParameter("end");
       List<UserMessage> messages = new MessageService().select(userId, start, end);
+
+      //入力した日付を保持するためセット
+      request.setAttribute("start", start);
+      request.setAttribute("end", end);
+
       //仕様追加③-2 返信内容の表示
       List<UserComment> comments = new CommentService().select();
       request.setAttribute("comments", comments);

@@ -27,8 +27,9 @@
 		</div>
 
 		<!-- 仕様追加⑤つぶやきの絞り込み 日時・絞込ボタン表示 -->
-		<form action="index.jsp" method="get">
-			日付： <input name="start" type="date">～<input name="end" type="date">
+		<form action="./" method="get">
+			<!-- カレンダー表示 入力内容保持するためvalueで設定 -->
+			日付： <input name="start" type="date" value="${start}">～<input name="end" type="date" value="${end}">
 			<input type="submit" value="絞込">
 		</form>
 
@@ -118,7 +119,7 @@
 					</c:if>
 				</div>
 				<!-- 仕様追加③-1 つぶやきの返信欄表示 -->
-				<!-- <div class="commentMessage"> -->
+				<div class="comments">
 					<c:if test="${ isShowMessageForm }">
 						<form action="comment" method="post">
 							<br /><textarea name="text" cols="100" rows="5" class="tweet-box"></textarea>
@@ -129,22 +130,24 @@
 					</c:if>
 					<!-- 仕様追加③-2 つぶやきの返信を表示 (返信コメントにはリンク,削除,編集機能なし)-->
 					<c:forEach items="${comments}" var="comment">
-						 <c:if test="${ comment.messageId == message.id }">
-							<div class="account-name">
-								<span class="account"> <c:out value="${comment.account}" /></span>
-								<span class="name"><c:out value="${comment.name}" /></span>
-							</div>
-							<div class="text">
-								<!-- pre要素でつぶやき内の改行を反映させる -->
-								<pre><c:out value="${comment.text}" /></pre>
-							</div>
-							<div class="date">
-								<fmt:formatDate value="${comment.createdDate}"
-									pattern="yyyy/MM/dd HH:mm:ss" />
-							</div>
-						</c:if>
+						<div class="comment">
+							<c:if test="${ comment.messageId == message.id }">
+								<div class="account-name">
+									<span class="account"> <c:out value="${comment.account}" /></span>
+									<span class="name"><c:out value="${comment.name}" /></span>
+								</div>
+								<div class="text">
+									<!-- pre要素でつぶやき内の改行を反映させる -->
+									<pre><c:out value="${comment.text}" /></pre>
+								</div>
+								<div class="date">
+									<fmt:formatDate value="${comment.createdDate}"
+										pattern="yyyy/MM/dd HH:mm:ss" />
+								</div>
+							</c:if>
+						</div>
 					</c:forEach>
-				<!-- </div> -->
+				</div>
 			</c:forEach>
 		</div>
 
