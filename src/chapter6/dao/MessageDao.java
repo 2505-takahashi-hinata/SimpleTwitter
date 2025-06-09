@@ -69,7 +69,7 @@ public class MessageDao {
 	}
 
 	//仕様追加①つぶやきの削除  MessageServiceからdelete(connection, id)で渡されてきた
-	public void delete(Connection connection, String id) {
+	public void delete(Connection connection, Integer messageId) {
 
 		log.info(new Object() {
 		}.getClass().getEnclosingClass().getName() +
@@ -79,12 +79,12 @@ public class MessageDao {
 		PreparedStatement ps = null;
 		try {
 			StringBuilder sql = new StringBuilder();
-			sql.append("DELETE FROM messages");
+			sql.append("DELETE FROM messages ");
 			sql.append("WHERE id = ? ");
 
 			ps = connection.prepareStatement(sql.toString());
 
-			ps.setString(1, id);
+			ps.setInt(1, messageId);
 
 			ps.executeUpdate();
 		} catch (SQLException e) {

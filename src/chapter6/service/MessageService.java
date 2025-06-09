@@ -131,7 +131,8 @@ public class MessageService {
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			new MessageDao().delete(connection, id);
+			Integer messageId = Integer.parseInt(id);
+			new MessageDao().delete(connection, messageId);
 			commit(connection);
 		} catch (RuntimeException e) {
 			rollback(connection);

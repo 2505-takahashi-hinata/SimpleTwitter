@@ -10,6 +10,9 @@
 <title>簡易Twitter</title>
 <!-- 12追記 -->
 <link href="./css/style.css" rel="stylesheet" type="text/css">
+<script src="./js/vendor/jquery-3.7.1.min.js"></script>
+<script src="./js/vendor/jquery-3.7.1.js"></script>
+<script src="./js/main.js"></script>
 </head>
 <body>
 	<div class="main-contents">
@@ -102,7 +105,7 @@
 						<form action="deleteMessage" method="post">
 							<!-- message.idをhiddenを使い、message.idをdeleteMessageSerletに送る-->
 							<input name="id" value="${message.id}" id="id" type="hidden">
-							<input type="submit" value="削除">
+							<input type="submit" value="削除" id="delete">
 						</form>
 					</c:if>
 				</div>
